@@ -1,27 +1,85 @@
 const Node = require('./node');
 
 class LinkedList {
-    constructor() {}
+    constructor() {
+        this.length = 0;
+        this._nodes = [];
+        this._head = null;
+        this._tail = null;
+    }
 
-    append(data) {}
+    append(data) {
+        let newNode = new Node(data, null, null);
+        if (this.length === 0) {
+            this._head = newNode;
+        }
+        this._tail = newNode;
+        this._nodes.push(newNode);
+        this.length++
 
-    head() {}
+        return this;
+    }
 
-    tail() {}
+    head() {
+        if (this._head === null) {
+            return null;
+        }
+        return this._head.data;
+    }
 
-    at(index) {}
+    tail() {
+        if (this._tail === null) {
+            return null;
+        }
+        return this._tail.data;
+    }
 
-    insertAt(index, data) {}
+    at(index) {
+        return this._nodes[index].data;
+    }
 
-    isEmpty() {}
+    insertAt(index, data) {
+        let newNode = new Node(data, null, null);
+        this._nodes.splice(index, 0, newNode)
+        this.length++
+        return this;
+    }
 
-    clear() {}
+    isEmpty() {
+        return this.length === 0;
+    }
 
-    deleteAt(index) {}
+    clear() {
+        this._nodes = [];
+        this.length = 0;
+        this._head = null;
+        this._tail = null;
+        return this;
+    }
 
-    reverse() {}
+    deleteAt(index) {
+        this._nodes.splice(index, 1);
+        this.length--;
+        return this;
+    }
 
-    indexOf(data) {}
+    reverse() {
+        let temp = this._tail;
+        this._tail = this._head;
+        this._head = temp;
+        this._nodes.reverse();
+        return this;
+    }
+
+    indexOf(data) {
+        for (let i = 0; i < this.length; i++) {
+            if (this._nodes[i].data === data) {
+                return i;
+            }
+
+        }
+        return -1;
+    }
 }
 
 module.exports = LinkedList;
